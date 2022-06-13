@@ -35,6 +35,14 @@ app.post('/api/notes', (req, res) => {
   res.redirect('/notes')
 });
 
+app.delete('/api/notes/:id', (req, res) => {
+  let readfileSync = fs.readFileSync(path.join(__dirname, '/db/db.json'));
+  let dbfile = JSON.parse(readfileSync)
+  let currentID = req.params.id
+  let dbfileFiltered = dbfile.filter(note => note.id != currentID)
+  fs.writeFileSync(path.join(__dirname, '/db/db.json'), JSON.stringify(dbfileFiltered)) 
+  res.sendStatus(200)
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
