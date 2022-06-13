@@ -41,7 +41,8 @@ app.delete('/api/notes/:id', (req, res) => {
   let currentID = req.params.id
   let dbfileFiltered = dbfile.filter(note => note.id != currentID)
   fs.writeFileSync(path.join(__dirname, '/db/db.json'), JSON.stringify(dbfileFiltered)) 
-  res.sendStatus(200)
+  res.sendStatus(200) 
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
